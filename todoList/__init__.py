@@ -7,8 +7,7 @@ from .views import views
 # Biến môi trường
 load_dotenv()
 SECRET_KEY = os.environ.get("SECRET_KEY")
-DB_NAME = os.environ.get("DB_NAME")
-
+DB_URL = os.environ.get("DATABASE_URL")
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = SECRET_KEY
