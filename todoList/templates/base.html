@@ -25,6 +25,27 @@
             </div>
         </div>
     </nav>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for cat,mes in messages %}
+                {% if cat == "error" %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      {{ mes }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                {% else %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      {{ mes }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <div>
         {% block content %} {% endblock %}
     </div>
@@ -37,5 +58,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <script>
+          setTimeout(function() {
+            $('.alert').alert('close');
+          }, 3000)
+    </script>
 </body>
 </html>
