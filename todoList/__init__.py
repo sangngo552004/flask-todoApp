@@ -34,7 +34,7 @@ def create_app():
     login_manager = LoginManager()
     login_manager.login_view = "user.login"
     login_manager.init_app(app)
-    app.permanent_session_lifetime = timedelta(seconds=10)
+    app.permanent_session_lifetime = timedelta(minutes=5)
 
     @login_manager.user_loader
     def load_user(user_id):
