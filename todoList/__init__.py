@@ -1,7 +1,9 @@
+from datetime import timedelta
 from flask import Flask
 import os
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
 #
 db = SQLAlchemy()
@@ -28,4 +30,13 @@ def create_app():
 
     app.register_blueprint(user)
     app.register_blueprint(views)
+
+    login_manager = LoginManager()
+    login_manager.login_view = "user.login"
+    login_manager.init_app(app)
+    app.permanent_session_lifetime = timedelta(seconds=10)
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
     return app
